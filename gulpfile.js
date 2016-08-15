@@ -33,6 +33,7 @@ gulp.task('sass', function () {
 			cascade: false
 		}))
 		.pipe($.cssImageDimensions())
+		.on('error', $.notify.onError())
 		.pipe($.if(devMode !== 'prod', $.sourcemaps.write())) 
 		.pipe(gulp.dest(destFolder + '/assets/css'));  
 });

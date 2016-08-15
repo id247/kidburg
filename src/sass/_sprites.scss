@@ -11,17 +11,6 @@ $icon-home: x y offset_x offset_y width height total_width total_height image_pa
 At the bottom of this section, we provide information about the spritesheet itself
 $spritesheet: width height image $spritesheet-sprites;
 */
-$buttom-more-name: 'buttom-more';
-$buttom-more-x: 375px;
-$buttom-more-y: 146px;
-$buttom-more-offset-x: -375px;
-$buttom-more-offset-y: -146px;
-$buttom-more-width: 169px;
-$buttom-more-height: 37px;
-$buttom-more-total-width: 579px;
-$buttom-more-total-height: 408px;
-$buttom-more-image: '../images/sprite.png';
-$buttom-more: (375px, 146px, -375px, -146px, 169px, 37px, 579px, 408px, '../images/sprite.png', 'buttom-more', );
 $button-contest-name: 'button-contest';
 $button-contest-x: 0px;
 $button-contest-y: 73px;
@@ -33,6 +22,17 @@ $button-contest-total-width: 579px;
 $button-contest-total-height: 408px;
 $button-contest-image: '../images/sprite.png';
 $button-contest: (0px, 73px, 0px, -73px, 429px, 73px, 579px, 408px, '../images/sprite.png', 'button-contest', );
+$button-more-name: 'button-more';
+$button-more-x: 375px;
+$button-more-y: 146px;
+$button-more-offset-x: -375px;
+$button-more-offset-y: -146px;
+$button-more-width: 169px;
+$button-more-height: 37px;
+$button-more-total-width: 579px;
+$button-more-total-height: 408px;
+$button-more-image: '../images/sprite.png';
+$button-more: (375px, 146px, -375px, -146px, 169px, 37px, 579px, 408px, '../images/sprite.png', 'button-more', );
 $button-professions-name: 'button-professions';
 $button-professions-x: 0px;
 $button-professions-y: 0px;
@@ -91,7 +91,7 @@ $play: (0px, 294px, 0px, -294px, 120px, 114px, 579px, 408px, '../images/sprite.p
 $spritesheet-width: 579px;
 $spritesheet-height: 408px;
 $spritesheet-image: '../images/sprite.png';
-$spritesheet-sprites: ($buttom-more, $button-contest, $button-professions, $button-watch, $kidburg, $logotype, $play, );
+$spritesheet-sprites: ($button-contest, $button-more, $button-professions, $button-watch, $kidburg, $logotype, $play, );
 $spritesheet: (579px, 408px, '../images/sprite.png', $spritesheet-sprites, );
 
 /*

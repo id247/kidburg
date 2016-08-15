@@ -1,6 +1,6 @@
 @charset "UTF-8";
 /* ==========================================================================
- * Layout
+ * container
  * ========================================================================== */
 
 .container{
@@ -10,17 +10,434 @@
 	&__section{
 		
 	}
+}
+
+/* ==========================================================================
+ * section
+ * ========================================================================== */
+
+.section{
+
+	padding: 80px 0 80px;
 
 	&__wrap{
 		@include clearfix;
 		width: 1200px;
 		padding: 0 20px;
+		margin: auto;
+	}
+
+	&__title{
+		text-align: center;
+		margin: 0 0 40px;
+		font-weight: 400;
+		text-transform: uppercase;
+		font-size: 48px;
+		font-family: $pribambas;
 	}
 }
 
 /* ==========================================================================
- * main
+ * logo
+ * ========================================================================== */
+
+.logo{
+	display: inline-block;
+	text-align: left;
+	text-indent: -9999px;
+	@include sprite($kidburg);
+}
+
+/* ==========================================================================
+ * header
+ * ========================================================================== */
+
+.header{
+	background: #fff;
+	padding: 10px 0 15px;
+
+	box-shadow: 0 0 15px rgba(0,0,0,.3);
+	z-index: 500;
+
+	&__site{
+		float: left;
+		width: 30%;
+		margin: 20px 0 0;
+	}
+
+	&__city{
+		float: right;
+		width: 30%;
+		text-align: right;
+		margin: 20px 0 0;
+	}
+
+	&__logo{
+		margin: 0 30%;
+		text-align: center;
+	}
+}
+
+
+/* ==========================================================================
+ * home
+ * ========================================================================== */
+
+.home{
+	background: #3e8ef7 url(../images/bg/home.jpg) 50% 0 no-repeat;
+	background-size: cover;
+	color: #fff;
+	text-align: center;
+	padding: 177px 0 250px;
+	position: relative;
+
+	&:after{
+		content: '';
+		background: url(../images/city.png) 50% 0 no-repeat;
+		position: absolute;
+		left: 0;
+		right: 0;
+		bottom: 0;
+
+		height: image-height('../assets/images/city.png');
+	}
+
+	&__play{
+		margin: 0 0 40px;
+	}
+
+	&__title{
+		font-size: 60px;
+		margin: 0;
+	}
+
+}
+
+/* ==========================================================================
+ * about
+ * ========================================================================== */
+
+.about{
+	padding: 120px 0 100px;
+	min-height: 480px;
+
+	background: #fff url(../images/bg/green.png) 50% 100% no-repeat;
+	//background-size: cover;
+
+	color: #fff;
+
+	text-align: center;
+
+	&__title{
+		
+	}
+
+	&__text{
+		max-width: 700px;
+		margin: 0 auto 20px;
+	}
+}
+
+/* ==========================================================================
+ * professions
+ * ========================================================================== */
+
+.professions{
+
+	padding: 120px 0 190px;
+
+	&__title{
+		margin: 0 0 67px;
+	}
+
+	&__list{
+		text-align: center;
+		margin: 0 -1% 90px;
+	}
+	
+	&__item{
+		display: inline-block;
+		vertical-align: top;
+		width: 18%;
+		margin: 0 .5% 30px;
+	}
+
+	&__button-placeholder{
+		text-align: center;
+	}
+
+}
+
+.professions-item{
+	color: #888888;
+	text-align: center;
+
+	&__image-placeholder{
+		margin: 0 0 20px;
+		height: 212px;
+		line-height: 212px;
+	}
+
+	&__image{
+		max-width: 100%;
+		vertical-align: middle;
+	}
+
+	&__title{
+		text-transform: uppercase;
+		font-size: 24px;
+		font-family: $pribambas;
+	}
+}
+
+
+/* ==========================================================================
+ * info
+ * ========================================================================== */
+
+.info{
+	position: relative;
+	background: #d1f3ff;
+	padding: 90px 0;
+	height: 1200px;
+	&:before{
+		content: '';
+		position: absolute;
+		top: -80px;
+		bottom: -80px;
+		left: 0;
+		right: 0;
+		background: url(../images/bg/blue.png) 50% 0 no-repeat;
+	}
+
+	&__wrap{
+		position: relative;
+	}
+
+	&__content{
+		float: left;
+		width: 600px;
+		margin: 0 0 0 30px;
+	}
+
+	&__photos{
+		float: right;
+		width: 500px;
+	}
+
+	&__title{
+		font-size: 36px;
+		text-align: left;
+	}
+
+	&__list{
+		
+	}
+
+	&__item{
+		margin: 0 0 40px;
+		&:last-child{
+			margin-bottom: 0;
+		}
+	}
+}
+
+.info-item{
+
+	&__title{
+		font-size: 20px;
+		font-weight: 700;
+		margin: 0 0 20px;
+	}
+
+	&__list{
+		font-size: 20px;
+		margin: 0 0 20px;
+	}
+
+	&__item{
+		margin: 0 0 15px;
+	}
+}
+
+.info-photos{
+
+	&__list{
+		position: relative;
+
+		min-height: 800px;
+	}
+
+	&__item{
+		background: #fff;
+		padding: 5px;
+		border-radius: 5px;
+		box-shadow: 0 0 15px rgba(0,0,0,.5);
+		position: absolute;
+		left: 0;
+		top: 0;
+
+		&--1{
+			transform: rotate(-13deg);
+		}
+
+		&--2{
+			top: 500px;
+			transform: rotate(-11deg);
+		}
+
+		&--3{
+			transform: rotate(5deg);
+			left: 20px;
+			top: 270px;
+		}
+	}
+
+	&__image{
+		display: block;
+		width: 515px;
+	}
+}
+
+
+/* ==========================================================================
+ * contest
+ * ========================================================================== */
+
+.contest{
+	background: #fff url(../images/bg/contest.jpg) 50% 0 no-repeat;
+	background-size: cover;
+	color: #fff;
+	padding: 200px 0 100px;
+	min-height: image-height('../assets/images/bg/contest.jpg');
+
+	&__title{
+		font-family: $sans;
+		font-weight: 700;
+		text-transform: none;
+		font-size: 60px;
+	}
+
+	&__button-placeholder{
+		text-align: center;
+	}
+}
+
+
+/* ==========================================================================
+ * best
+ * ========================================================================== */
+
+.best{
+	padding: 20px 0 90px;
+
+	&__title{
+		margin: 0 0 75px;
+	}
+
+	&__list{
+		text-align: left;
+		margin: 0 -5% -30px 0;
+	}
+	
+	&__item{
+		text-align: left;
+		display: inline-block;
+		vertical-align: top;
+		width: 29%;
+		margin: 0 4% 30px 0;
+	}
+}
+
+.best-item{
+
+	&__title{
+		font-size: 20px;
+		font-weight: 700;
+		margin: 0 0 20px;
+	}
+
+	&__text{
+		
+	}
+}
+
+/* ==========================================================================
+ * site
+ * ========================================================================== */
+
+.site{
+	background: #af51c2 url(../images/bg/site.jpg) 50% 0 no-repeat;
+	background-size: cover;
+	color: #fff;
+	padding: 100px 0 115px;
+	text-align: center;
+
+	&__title{
+		font-family: $sans;
+		font-size: 24px;
+		text-transform: none;
+	}
+}
+ 
+
+ /* ==========================================================================
+  * footer
+  * ========================================================================== */
+ 
+
+.footer{
+	padding: 20px 0 20px;
+	background: #5a5552;
+	color: #cdcbca;
+
+	&__content{
+		float: left;
+		font-size: 18px;
+	}
+
+	&__social{
+		float: right;
+	}
+}
+
+/* ==========================================================================
+ * social
  * ========================================================================== */
 
 
- 
+.social{
+
+	&__list{
+		margin: 0 0 -2px;
+	}
+
+	&__item{
+		display: inline-block;
+		vertical-align: top;
+		margin: 0 2px 2px;
+	}
+
+	&__href{
+		display: block;
+		text-indent: -9999px;
+		text-align: left;
+
+		&--vk{
+			//@include sprite($soc-vk);
+		}
+
+		&--fb{
+			//@include sprite($soc-fb);
+		}
+
+		&--ok{
+			//@include sprite($soc-ok);
+		}
+
+		&:hover{
+			opacity: .8;
+		}
+		
+	}
+}
