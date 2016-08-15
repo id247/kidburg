@@ -3,9 +3,19 @@
  * Layout
  * ========================================================================== */
 
-.body-container{
+.container{
 	overflow: hidden;
 	position: relative;
+
+	&__section{
+		
+	}
+
+	&__wrap{
+		@include clearfix;
+		width: 1200px;
+		padding: 0 20px;
+	}
 }
 
 /* ==========================================================================
