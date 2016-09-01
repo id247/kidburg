@@ -32,18 +32,23 @@ export default (function (window, document, $){
 		let cityName;
 
 		switch(regionName){
+			case 'RU-LEN':
+			case 'RU_SPE':
 			case 'LEN':
 			case 'SPE':
 				regionId = 'kidburg-spb';
 				cityName = 'Санкт-Петербурге';				
 				break;
 
+			case 'RU-MOS':
+			case 'RU-MOW':
 			case 'MOS':
 			case 'MOW':
 				regionId = 'kidburg-msk';
 				cityName = 'Москве';				
 				break;
 
+			case 'RU-NIZ':
 			case 'NIZ':
 				regionId = 'kidburg';
 				cityName = 'Нижнем Новгороде';				
