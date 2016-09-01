@@ -1,12 +1,12 @@
 'use strict'
 import 'babel-polyfill';
 
-import app from './app';
+import video from './video';
 
 
 //start the magic
 document.addEventListener("DOMContentLoaded", () => {
 
-	app.init();
+	video.init();
 
 });   

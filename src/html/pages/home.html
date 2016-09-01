@@ -11,7 +11,23 @@
 		</div><!-- /.header__site -->
 
 		<div class="header__city">
-			<!-- empty -->
+			
+			<div class="select">
+				
+				<div class="select__select-placeholder">
+				
+					<select class="select__select" name="city" id="city-select">
+						
+						<option value="kidburg-spb" @@if (city === "spb") {selected}>Санкт-Петербург</option>
+						<option value="kidburg-msk" @@if (city === "msk") {selected}>Москва</option>
+						<option value="kidburg" @@if (city === "nn") {selected}>Нижний Новгород</option>
+
+					</select>
+
+				</div><!-- /.select__select-placeholder -->
+
+			</div><!-- /.select -->
+
 		</div><!-- /.header__city -->
 
 		<div class="header__logo">

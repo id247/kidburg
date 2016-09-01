@@ -1,7 +1,6 @@
 'use strict';
 
-export default (function App(window, document, $){
-	console.log('run');
+export default (function (window, document, $){
 
 	function video(){
 		const $play = $('#play');

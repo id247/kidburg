@@ -91,39 +91,66 @@ gulp.task('assets', gulp.parallel('assets-files', 'assets-favicon', 'sprite'));
 // HTML
 gulp.task('html', function(callback){
 
-	function html(folder) {
-
-		var newDestFolder = destFolder + (folder !== 'local' ? '/' + folder : '');
-
-		return gulp.src([
-			'src/html/index/**/*.html', 
-			'src/html/*.html', 
-			'!src/html/index/**/_*.html',
-			'!src/html/_*.html', 
-			])
-			.pipe($.fileInclude({
-				prefix: '@@',
-				basepath: '@file',
-				context: {
-					'server': folder
-				},
-				indent: true
-			}))
-			.on('error', $.notify.onError())
-			//.pipe($.if(devMode === 'prod', $.htmlmin({collapseWhitespace: true})))
-			.pipe(gulp.dest(newDestFolder));
+	const servers = {
+		development: [
+			'local',
+		],
+		prod: [
+			'dnevnik',
+			'mosreg',
+			'staging',
+		],
 	}
+
+	const currentServers = servers[devMode];
 	
-	if (devMode == 'dev'){
-		html('local');
-	}else{
-		html('mosreg');
-		html('dnevnik');
+	if (!currentServers){
+		callback();
+		return false;
 	}
 
-	setTimeout( ()=> { //to let write files
-		callback();
-	},300);
+	currentServers.map( (server, i) => {
+		html(server, () => {
+			if (i === currentServers.length - 1){
+				callback();
+			}
+		});
+	});
+
+	function html(server, callback) {
+
+		let newDestFolder = destFolder;
+
+		if (server !== 'local'){
+			newDestFolder += '/' + server;
+		}
+
+		var files = [
+			'src/html/*.html'
+		];
+
+		if (server !== 'local'){
+			files.push('!src/html/oauth.html');
+		}
+
+		return gulp.src(files)
+		.pipe($.fileInclude({
+			prefix: '@@',
+			basepath: '@file',
+			context: {
+				server: server,
+				linkKidburg: 'http://ads.adfox.ru/222314/goLink?p1=bmiys&p2=v&p5=dwjve&pr=[RANDOM]&puid1=&puid2=&puid3=&puid4=&puid5=&puid6=&puid7=&puid8=&puid9=&puid10=&puid11=&puid12=&puid13=&puid14=&puid15=&puid16=&puid17=&puid18=&puid19=',
+				linkVk: 'http://ads.adfox.ru/222314/goLink?p1=bmiys&p2=v&p5=dwjvh&pr=[RANDOM]&puid1=&puid2=&puid3=&puid4=&puid5=&puid6=&puid7=&puid8=&puid9=&puid10=&puid11=&puid12=&puid13=&puid14=&puid15=&puid16=&puid17=&puid18=&puid19=',
+				linkInstagram: 'http://ads.adfox.ru/222314/goLink?p1=bmiys&p2=v&p5=dwjvm&pr=[RANDOM]&puid1=&puid2=&puid3=&puid4=&puid5=&puid6=&puid7=&puid8=&puid9=&puid10=&puid11=&puid12=&puid13=&puid14=&puid15=&puid16=&puid17=&puid18=&puid19=',
+				linkOk: 'http://ads.adfox.ru/222314/goLink?p1=bmiys&p2=v&p5=dwjvn&pr=[RANDOM]&puid1=&puid2=&puid3=&puid4=&puid5=&puid6=&puid7=&puid8=&puid9=&puid10=&puid11=&puid12=&puid13=&puid14=&puid15=&puid16=&puid17=&puid18=&puid19=',
+			},
+			indent: true
+		}))
+		.on('error', $.notify.onError())
+		.pipe($.if(devMode === 'production', $.htmlmin({collapseWhitespace: true})))
+		.pipe(gulp.dest(newDestFolder))
+		.on('end', callback);
+	};
 
 });
 
