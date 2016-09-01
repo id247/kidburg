@@ -65,6 +65,9 @@ const plugins = {
 	}),
 	uglifyJs: new webpack.optimize.UglifyJsPlugin({
 		minimize: true,
+		output: {
+			comments: false
+		},
 		compress: {
 			warnings: false
 		}

@@ -84,6 +84,9 @@ export default (function (window, document, $){
 	}
 
 	function init(cityCookieName){
+
+		return false;
+
 		cookieName = cityCookieName;
 		getLocation();
 		actions();
