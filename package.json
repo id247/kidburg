@@ -41,11 +41,10 @@
     "webpack-config": "^4.0.0"
   },
   "scripts": {
-    "lint": "eslint src/js",
-    "prod": "NODE_ENV=prod gulp prod",
-    "test": "NODE_ENV=test gulp test",
-    "prod-html": "NODE_ENV=prod gulp prod-html",
-    "prod-css": "NODE_ENV=prod gulp prod-css"
+    "prod": "NODE_ENV=production gulp clean; NODE_ENV=dnevnik webpack; NODE_ENV=mosreg webpack; NODE_ENV=staging webpack; NODE_ENV=production gulp prod-no-js;",
+    "prod-html": "NODE_ENV=production gulp prod-html",
+    "prod-js": "NODE_ENV=production gulp prod-js",
+    "prod-css": "NODE_ENV=production gulp prod-css"
   },
   "author": "",
   "license": "ISC"

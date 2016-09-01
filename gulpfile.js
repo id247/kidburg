@@ -1,31 +1,34 @@
 'use strict';
 
-var gulp = require('gulp');
-var $ = require('gulp-load-plugins')(); //lazy load some of gulp plugins
+const gulp = require('gulp');
+const $ = require('gulp-load-plugins')(); //lazy load some of gulp plugins
 
-var fs = require('fs');
-var watch = require('gulp-watch');
-var spritesmith = require('gulp.spritesmith');
-var posthtml = require('gulp-posthtml');
+const fs = require('fs');
+const spritesmith = require('gulp.spritesmith');
+const revHash = require('rev-hash');
+const del = require('del');
 
-var devMode = process.env.NODE_ENV || 'dev';
+const webpack = require('webpack');
+const webpackConfig = require('./webpack.config.js');
 
-var destFolder = devMode === 'dev' ? 'dev' : 'production';
+const devMode = process.env.NODE_ENV || 'development';
 
-var packageJson = JSON.parse(fs.readFileSync('./package.json'));
+const destFolder = devMode === 'development' ? 'development' : 'production';
 
-var CDN = packageJson.cdn;
+const packageJson = JSON.parse(fs.readFileSync('./package.json'));
+
+const CDN = packageJson.cdn;
 
 if (!CDN){
-	console.error('SET THE CDN!!!');
-	return;
+	console.error('SET THE CDN!!! in package.json');
+	process.exit();
 }
 
 // STYLES
 gulp.task('sass', function () {
 
 	return gulp.src('src/sass/style.scss')
-		.pipe($.if(devMode !== 'prod', $.sourcemaps.init())) 
+		.pipe($.if(devMode !== 'production', $.sourcemaps.init())) 
 		.pipe($.sass({outputStyle: 'expanded'})) 
 		.on('error', $.notify.onError())
 		.pipe($.autoprefixer({
@@ -34,20 +37,18 @@ gulp.task('sass', function () {
 		}))
 		.pipe($.cssImageDimensions())
 		.on('error', $.notify.onError())
-		.pipe($.if(devMode !== 'prod', $.sourcemaps.write())) 
+		.pipe($.if(devMode !== 'production', $.sourcemaps.write())) 
 		.pipe(gulp.dest(destFolder + '/assets/css'));  
 });
 
 // image urls
 gulp.task('modifyCssUrls', function () {
-	fs = require('fs');
-	$.revHash = require('rev-hash');
 
 	return gulp.src(destFolder + '/assets/css/style.css')
 		.pipe($.modifyCssUrls({
 			modify: function (url, filePath) {
-				var buffer = fs.readFileSync(url.replace('../', destFolder + '/assets/'));				
-				return url + '?_v=' + $.revHash(buffer);
+				const buffer = fs.readFileSync(url.replace('../', destFolder + '/assets/'));				
+				return url + '?_v=' + revHash(buffer);
 			},
 		}))		
 		.pipe($.minifyCss({compatibility: 'ie8'}))
@@ -68,7 +69,7 @@ gulp.task('assets-favicon', function(){
 });
 gulp.task('sprite', function(callback) {
 
-	var spriteData = 
+	const spriteData = 
 		gulp.src('src/assets/sprite/*.png') // путь, откуда берем картинки для спрайта
 		.pipe(spritesmith({
 			imgName: 'sprite.png',
@@ -95,7 +96,7 @@ gulp.task('html', function(callback){
 		development: [
 			'local',
 		],
-		prod: [
+		production: [
 			'dnevnik',
 			'mosreg',
 			'staging',
@@ -125,7 +126,7 @@ gulp.task('html', function(callback){
 			newDestFolder += '/' + server;
 		}
 
-		var files = [
+		const files = [
 			'src/html/*.html'
 		];
 
@@ -139,7 +140,9 @@ gulp.task('html', function(callback){
 			basepath: '@file',
 			context: {
 				server: server,
-				linkKidburg: 'http://ads.adfox.ru/222314/goLink?p1=bmiys&p2=v&p5=dwjve&pr=[RANDOM]&puid1=&puid2=&puid3=&puid4=&puid5=&puid6=&puid7=&puid8=&puid9=&puid10=&puid11=&puid12=&puid13=&puid14=&puid15=&puid16=&puid17=&puid18=&puid19=',
+				linkKidburgNN: 'http://ads.adfox.ru/222314/goLink?p1=bmiys&p2=v&p5=dwjve&pr=[RANDOM]&puid1=&puid2=&puid3=&puid4=&puid5=&puid6=&puid7=&puid8=&puid9=&puid10=&puid11=&puid12=&puid13=&puid14=&puid15=&puid16=&puid17=&puid18=&puid19=',
+				linkKidburgSpb: 'http://ads.adfox.ru/222314/goLink?p1=bmiys&p2=v&p5=dxhsr&pr=[RANDOM]&puid1=&puid2=&puid3=&puid4=&puid5=&puid6=&puid7=&puid8=&puid9=&puid10=&puid11=&puid12=&puid13=&puid14=&puid15=&puid16=&puid17=&puid18=&puid19=',
+				linkKidburgMsk: 'http://ads.adfox.ru/222314/goLink?p1=bmiys&p2=v&p5=dxhsu&pr=[RANDOM]&puid1=&puid2=&puid3=&puid4=&puid5=&puid6=&puid7=&puid8=&puid9=&puid10=&puid11=&puid12=&puid13=&puid14=&puid15=&puid16=&puid17=&puid18=&puid19=',
 				linkVk: 'http://ads.adfox.ru/222314/goLink?p1=bmiys&p2=v&p5=dwjvh&pr=[RANDOM]&puid1=&puid2=&puid3=&puid4=&puid5=&puid6=&puid7=&puid8=&puid9=&puid10=&puid11=&puid12=&puid13=&puid14=&puid15=&puid16=&puid17=&puid18=&puid19=',
 				linkInstagram: 'http://ads.adfox.ru/222314/goLink?p1=bmiys&p2=v&p5=dwjvm&pr=[RANDOM]&puid1=&puid2=&puid3=&puid4=&puid5=&puid6=&puid7=&puid8=&puid9=&puid10=&puid11=&puid12=&puid13=&puid14=&puid15=&puid16=&puid17=&puid18=&puid19=',
 				linkOk: 'http://ads.adfox.ru/222314/goLink?p1=bmiys&p2=v&p5=dwjvn&pr=[RANDOM]&puid1=&puid2=&puid3=&puid4=&puid5=&puid6=&puid7=&puid8=&puid9=&puid10=&puid11=&puid12=&puid13=&puid14=&puid15=&puid16=&puid17=&puid18=&puid19=',
@@ -156,8 +159,6 @@ gulp.task('html', function(callback){
 
 //set new images,css and js hash versions
 gulp.task('vers', function(){	
-
-	$.revHash = require('rev-hash');
 
 	const plugins = [
 		function relativeLinks(tree) {
@@ -196,7 +197,7 @@ gulp.task('vers', function(){
 	];
 
 	function getVersion(file){
-		return fs.existsSync(destFolder + '/' + file) && $.revHash(fs.readFileSync(destFolder + '/' +  file));
+		return fs.existsSync(destFolder + '/' + file) && revHash(fs.readFileSync(destFolder + '/' +  file));
 	}
 
 	function setVestion(node, attrName){
@@ -217,7 +218,7 @@ gulp.task('vers', function(){
 	}
 
 	return gulp.src([destFolder + '/{dnevnik,mosreg}/*.html'])
-		.pipe(posthtml(plugins))
+		.pipe($.posthtml(plugins))
 		.on('error', $.notify.onError())
 		.pipe(gulp.dest(destFolder));
 
@@ -225,12 +226,10 @@ gulp.task('vers', function(){
 
 //JS
 gulp.task('webpack', function(callback) {
-	$.webpack = require('webpack');
-	$.webpackConfig = require('./webpack.config.js');
-	
-	var myConfig = Object.create($.webpackConfig);
 
-	$.webpack(myConfig, 
+	const myConfig = Object.create(webpackConfig);
+
+	webpack(myConfig, 
 	function(err, stats) {
 		if(err) throw new $.util.PluginError('webpack', err);
 		$.util.log('[webpack]', stats.toString({
@@ -242,10 +241,8 @@ gulp.task('webpack', function(callback) {
 
 // BUILD
 gulp.task('server', function () {
-	$.server = require('gulp-server-livereload');
-
 	gulp.src(destFolder)
-	.pipe($.server({
+	.pipe($.serverLivereload({
 		livereload: true,
 		directoryListing: false,
 		open: false,
@@ -256,16 +253,15 @@ gulp.task('server', function () {
 gulp.task('watch', function(){
 	gulp.watch('src/sass/**/*.scss', gulp.series('sass'));
 	gulp.watch('src/assets/**/*', gulp.series('assets'));
-	gulp.watch(['src/js/**/*.js', 'my_modules/**/*.js'], gulp.series('webpack'));
+	gulp.watch('src/js/**/*.js', gulp.series('webpack'));
 	gulp.watch('src/html/**/*.html', gulp.series('html'));
 });
 
-gulp.task('clean', function(callback) {
-	$.del = require('del');
-	return $.del([destFolder]);
+gulp.task('clean', function() {
+	return del([destFolder]);
 });
 
-gulp.task('build', gulp.series('assets', 'sass', gulp.parallel('html', 'webpack')));
+gulp.task('build', gulp.series('webpack', 'assets', 'sass', 'html'));
 
 
 //PUBLIC TASKS
@@ -273,10 +269,7 @@ gulp.task('build', gulp.series('assets', 'sass', gulp.parallel('html', 'webpack'
 //production
 
 // npm run prod - build whole project to deploy in 'production' folder
-gulp.task('prod', gulp.series('clean', 'build', 'modifyCssUrls', 'vers'));
-
-// npm run test - build whole test project to deploy in 'production' folder
-gulp.task('test', gulp.series('build', 'modifyCssUrls', 'vers'));
+gulp.task('prod-no-js', gulp.series('assets', 'sass', 'html', 'modifyCssUrls', 'vers'));
 
 // npm run prod-html - build only html in 'production' folder
 gulp.task('prod-html', gulp.series('html', 'vers'));
@@ -284,12 +277,15 @@ gulp.task('prod-html', gulp.series('html', 'vers'));
 // npm run prod-css - build only css in 'production' folder
 gulp.task('prod-css', gulp.series('sass', 'modifyCssUrls'));
 
+// npm run prod-js - build only css in 'production' folder
+gulp.task('prod-js', gulp.series('webpack', 'prod-html'));
+
 //development
 
-// gulp start - very first start to build the project and run server in 'dev' folder
+// gulp start - very first start to build the project and run server in 'development' folder
 gulp.task('start', gulp.series('clean', 'build', gulp.parallel('server', 'watch')));
 
-// gulp - just run server in 'dev' folder
+// gulp - just run server in 'development' folder
 gulp.task('default', gulp.parallel('server', 'watch'));
 
 
