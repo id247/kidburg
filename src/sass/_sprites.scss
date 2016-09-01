@@ -11,6 +11,17 @@ $icon-home: x y offset_x offset_y width height total_width total_height image_pa
 At the bottom of this section, we provide information about the spritesheet itself
 $spritesheet: width height image $spritesheet-sprites;
 */
+$button-constructor-name: 'button-constructor';
+$button-constructor-x: 230px;
+$button-constructor-y: 216px;
+$button-constructor-offset-x: -230px;
+$button-constructor-offset-y: -216px;
+$button-constructor-width: 252px;
+$button-constructor-height: 46px;
+$button-constructor-total-width: 579px;
+$button-constructor-total-height: 408px;
+$button-constructor-image: '../images/sprite.png';
+$button-constructor: (230px, 216px, -230px, -216px, 252px, 46px, 579px, 408px, '../images/sprite.png', 'button-constructor', );
 $button-contest-name: 'button-contest';
 $button-contest-x: 0px;
 $button-contest-y: 73px;
@@ -124,7 +135,7 @@ $soc-vk: (399px, 183px, -399px, -183px, 24px, 24px, 579px, 408px, '../images/spr
 $spritesheet-width: 579px;
 $spritesheet-height: 408px;
 $spritesheet-image: '../images/sprite.png';
-$spritesheet-sprites: ($button-contest, $button-more, $button-professions, $button-watch, $kidburg, $logotype, $play, $soc-insta, $soc-ok, $soc-vk, );
+$spritesheet-sprites: ($button-constructor, $button-contest, $button-more, $button-professions, $button-watch, $kidburg, $logotype, $play, $soc-insta, $soc-ok, $soc-vk, );
 $spritesheet: (579px, 408px, '../images/sprite.png', $spritesheet-sprites, );
 
 /*

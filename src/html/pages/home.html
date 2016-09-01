@@ -96,6 +96,120 @@
 
 
 
+
+<section class="container__section section constructor" id="constructor">
+	
+	<div class="section__wrap constructor__wrap">
+
+		<div class="constructor__content">
+
+			<h2 class="section__title constructor__title">
+				Какую активность выбрать?
+			</h2>
+
+			<div class="constructor__text text">
+				<p>
+					Подберите развлечение, которое идеально <br>
+					подойдёт Вашему ребёнку!
+				</p>
+			</div><!-- /.constructor__text -->
+			
+
+			<form class="constructor__form constructor-form" method="get" target="_blank"
+				@@if (city === "msk"){
+				action="http://kidburg.ru/moscow/search-results/"
+				}
+				@@if (city == "spb"){
+				action="http://kidburg.ru/search-results/"
+				}
+				@@if (city === "nn"){
+				action="http://nn.kidburg.ru/search-results/"
+				}
+			>
+				
+				<div class="constructor-form__item">
+					
+					<div class="constructor-form__name">
+						Возраст ребенка
+					</div><!-- /.constructor-form__name -->
+
+					<div class="constructor-form__select">
+
+						<div class="select">
+							
+							<div class="select__select-placeholder">
+							
+								<select class="select__select" name="child-age">
+									
+									<option value="1.5">1.5</option>
+									<option value="2">2</option>
+									<option value="3">3</option>
+									<option value="4">4</option>
+									<option value="5">5</option>
+									<option value="6">6</option>
+									<option value="7">7</option>
+									<option value="8">8</option>
+									<option value="9">9</option>
+									<option value="10">10</option>
+									<option value="11">11</option>
+									<option value="12">12</option>
+									<option value="13">13</option>
+									<option value="14">14</option>
+
+								</select>
+
+							</div><!-- /.select__select-placeholder -->
+
+						</div><!-- /.select -->
+
+					</div><!-- /.constructor-form__select -->
+
+				</div><!-- /.constructor-form__item -->
+				
+				<div class="constructor-form__item">
+					
+					<div class="constructor-form__name">
+						Количество детей
+					</div><!-- /.constructor-form__name -->
+
+					<div class="constructor-form__select">
+
+						<div class="select">
+							
+							<div class="select__select-placeholder">
+							
+								<select class="select__select" name="num-children">
+									
+									<option value="1">Менее 10</option>
+									<option value="10">10-20</option>
+									<option value="20">Более 20</option>
+
+								</select>
+
+							</div><!-- /.select__select-placeholder -->
+
+						</div><!-- /.select -->
+
+					</div><!-- /.constructor-form__select -->
+
+				</div><!-- /.constructor-form__item -->
+
+				<div class="constructor-form__button-placeholder">
+					
+					<button type="submit" class="button button--constructor">Посмотреть рекомендацию</button>
+
+				</div><!-- /.constructor-form__button-placeholder -->
+
+			</form><!-- /.constructor__form -->
+		
+		</div><!-- /.constructor__content -->
+
+	</div> <!-- /.constructor__wrap -->
+
+</section> <!-- /.constructor -->
+
+
+
 <section class="container__section section professions" id="professions">
 	
 	<div class="section__wrap professions__wrap">

@@ -121,6 +121,24 @@
 		}
 	}
 
+
+	&--constructor{
+		background-color: transparent;
+		@include sprite($button-constructor);
+		font-size: 21px;
+		font-family: $pribambas;
+		text-align: center;
+		color: #fff;
+		opacity: .95;
+		padding: 6px 0 0;
+		&:hover{
+			opacity: .9;
+		}
+		&:active{
+			
+		}
+	}
+
 	&--arrow-back{
 		background: #fdb617;
 		color: #fff;

@@ -162,6 +162,56 @@
 }
 
 /* ==========================================================================
+ * constructor
+ * ========================================================================== */
+
+.constructor{
+
+	&__content{
+		box-shadow: 0 0 30px rgba(0,0,0,.12);
+		padding: 60px 70px;
+		margin: 0 auto;
+		width: 710px;
+		border-radius: 50px; 	
+	}
+
+	&__title{
+		margin: 0 0 10px;
+	}
+
+	&__text{
+		text-align: center;
+		color: #8a8a8a;
+		margin: 0 0 30px;
+	}
+
+	&__form{
+		
+	}
+}
+
+.constructor-form{
+	@include clearfix;
+	&__item{
+		float: left;
+		width: 24%;
+		margin: 0 3% 0 0;
+	}
+
+	&__name{
+		color: #8a8a8a;
+		font-size: 16px;
+		margin: 0 0 3px;
+	}
+
+	&__button-placeholder{
+		float: right;
+		width: 46%;
+		padding: 20px 0 0;
+	}
+}
+
+/* ==========================================================================
  * professions
  * ========================================================================== */
 
