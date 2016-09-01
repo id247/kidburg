@@ -6,7 +6,7 @@ export default (function (window, document, $){
 
 	let regionId;	
 	
-	const cookieName = 'city';
+	let cookieName;
 	const visibleClassName = 'modal-city--visible';
 
 	const $cityName = $('.js-modal-city-city-name');
@@ -83,8 +83,8 @@ export default (function (window, document, $){
 		});
 	}
 
-	function init(){
-
+	function init(cityCookieName){
+		cookieName = cityCookieName;
 		getLocation();
 		actions();
 	}

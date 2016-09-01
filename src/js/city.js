@@ -6,7 +6,7 @@ export default (function (window, document, $){
 
 	const $select = $('.js-city-select');
 
-	const cookieName = 'city';
+	let cookieName;
 
 	function actions(){
 
@@ -33,8 +33,8 @@ export default (function (window, document, $){
 		});
 	}
 
-	function init(){
-
+	function init(cityCookieName){
+		cookieName = cityCookieName;
 		actions();
 	}
 
