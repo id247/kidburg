@@ -18,10 +18,6 @@ export default (function (window, document, $){
 		if (!regionId){
 			return false;
 		}
-		
-		if (Cookie.get(cookieName)){
-			return false;
-		}
 
 		$modal.addClass(visibleClassName);
 	}
@@ -37,11 +33,13 @@ export default (function (window, document, $){
 
 		switch(regionName){
 			case 'LEN':
+			case 'SPE':
 				regionId = 'kidburg-spb';
 				cityName = 'Санкт-Петербурге';				
 				break;
 
 			case 'MOS':
+			case 'MOW':
 				regionId = 'kidburg-msk';
 				cityName = 'Москве';				
 				break;
@@ -59,9 +57,13 @@ export default (function (window, document, $){
 
 	
 	function getLocation(){
+		
+		if (Cookie.get(cookieName)){
+			return false;
+		}
 
-        $.getJSON('http://ip-api.com/json/', function(data){
-			//console.log(data);
+        $.getJSON('http://ip-api.com/json/?lang=ru', function(data){
+			console.log(data);
 			getRegionName(data.region);
 			showModal();
 		});
