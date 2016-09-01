@@ -515,3 +515,59 @@
 		
 	}
 }
+
+/* ==========================================================================
+ * modal-city
+ * ========================================================================== */
+
+.modal-city{
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+
+	padding: 200px 0 0;
+
+	background: rgba(255,255,255,.5);
+
+	display: none;
+
+	&--visible{
+		display: block;
+	}
+
+	&__content{
+		margin: auto;
+		width: 600px;
+		background: #fff;
+		padding: 30px;
+	}
+
+	&__title{
+		text-align: center;
+		font-size: 24px;
+		margin: 0 0 30px;
+	}
+
+	&__answer{
+		@include clearfix;
+	}
+
+	&__yes{
+		float: left;
+		padding: 3px 0 0;
+	}
+
+	&__or{
+		float: left;
+		margin: 11px 18px 0;
+		text-align: center;
+		font-size: 18px;
+	}
+
+	&__city{
+		float: right;
+		width: 300px;
+	}
+}

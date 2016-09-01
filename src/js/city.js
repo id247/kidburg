@@ -1,24 +1,41 @@
 'use strict';
 
+import Cookie from 'js-cookie';
+
 export default (function (window, document, $){
 
-	function video(){
-		const $play = $('#play');
-		const $video = $('.home__video');
-		const $videoFrame = $('#video-frame');
+	const $select = $('.js-city-select');
 
-		$play.on('click', function(e){
+	const cookieName = 'city';
+
+	function actions(){
+
+		$select.on('change', function(e){
 			e.preventDefault();
-			const src = $(this).data('video');
+			const value = $(this).find('option:selected').val();
 
-			$videoFrame.attr('src', src);
-			$video.addClass('home__video--visible');
+			if (!value){
+				return;
+			}
+
+			const href = document.location.href;
+			let newLocation;
+
+			if (href.indexOf('localhost') > -1){
+				newLocation = href.replace(/(9000\/)[-a-zA-Z0-9]+(\.html)/, '$1' + value + '$2');
+			}else{
+				newLocation = href.replace(/(promo\/)[-a-zA-Z0-9]+/, '$1' + value);
+			}
+
+			Cookie.set(cookieName, value);
+
+			document.location.href = newLocation;
 		});
 	}
 
 	function init(){
 
-		video();
+		actions();
 	}
 
 	return {
