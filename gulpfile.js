@@ -217,7 +217,7 @@ gulp.task('vers', function(){
 		return node;
 	}
 
-	return gulp.src([destFolder + '/{dnevnik,mosreg}/*.html'])
+	return gulp.src([destFolder + '/{dnevnik,mosreg,staging}/*.html'])
 		.pipe($.posthtml(plugins))
 		.on('error', $.notify.onError())
 		.pipe(gulp.dest(destFolder));
@@ -276,9 +276,6 @@ gulp.task('prod-html', gulp.series('html', 'vers'));
 
 // npm run prod-css - build only css in 'production' folder
 gulp.task('prod-css', gulp.series('sass', 'modifyCssUrls'));
-
-// npm run prod-js - build only css in 'production' folder
-gulp.task('prod-js', gulp.series('webpack', 'prod-html'));
 
 //development
 

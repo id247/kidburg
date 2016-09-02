@@ -6,12 +6,16 @@ export default (function (window, document, $){
 
 	let regionId;	
 	
-	let cookieName;
+	let cookieName = 'city';
 	const visibleClassName = 'modal-city--visible';
 
 	const $cityName = $('.js-modal-city-city-name');
 	const $modal = $('#modal-city');
 	const $ok = $('.js-modal-city-ok');
+
+
+	const $select = $('.js-city-select');
+
 
 	function showModal(){
 
@@ -33,7 +37,7 @@ export default (function (window, document, $){
 
 		switch(regionName){
 			case 'RU-LEN':
-			case 'RU_SPE':
+			case 'RU-SPE':
 			case 'LEN':
 			case 'SPE':
 				regionId = 'kidburg-spb';
@@ -67,27 +71,65 @@ export default (function (window, document, $){
 			return false;
 		}
 
-        $.getJSON('http://ip-api.com/json/?lang=ru', function(data){
-			console.log(data);
-			getRegionName(data.region);
-			showModal();
-		});
+		$.ajax({
+			url: '//freegeoip.net/json', 
+			method: 'POST',
+			dataType: 'jsonp',
+			success: function( response ) {				
+				console.log(response);
+				getRegionName(response.region_code);
+				showModal();
+			}
+		});	
 
 	}
 
 	function actions(){
 		$ok.on('click', function(e){
 			e.preventDefault();
-			Cookie.set(cookieName, 'true');
+			Cookie.set(cookieName, regionId);
+			redirect(regionId);
 			hideModal();
 		});
+
+
+		$select.on('change', function(e){
+			e.preventDefault();
+			const regionId = $(this).find('option:selected').val();
+
+			if (!regionId){
+				return;
+			}
+			Cookie.set(cookieName, regionId);
+			redirect(regionId);
+		});
+
 	}
 
-	function init(cityCookieName){
+	function redirect(regionId){
+		const href = document.location.href;
+		let newLocation;
 
-		return false;
+		//regionId = 'kidburg-spb';
+		
+		const reg = new RegExp(regionId.replace('-', '\\-') + '(\\?.*|\\#.*|\\.html.*|)$');
+		
+		if ( href.match( reg ) ){
+			//console.log('match');
+			return false;
+		}
+		//console.log('not match');
 
-		cookieName = cityCookieName;
+		if (href.indexOf('localhost') > -1){
+			newLocation = href.replace(/(9000\/)[-a-zA-Z0-9]+(\.html)/, '$1' + regionId + '$2');
+		}else{
+			newLocation = href.replace(/(promo\/)[-a-zA-Z0-9]+/, '$1' + regionId);
+		}
+
+		document.location.href = newLocation;
+	}
+
+	function init(){
 		getLocation();
 		actions();
 	}
