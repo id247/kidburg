@@ -263,6 +263,40 @@
 	}
 }
 
+/* ==========================================================================
+ * sachools
+ * ========================================================================== */
+
+.schools{
+	background: #d1f3ff;
+
+	&__content{
+		float: left;
+		width: 68%;
+	}
+
+	&__title{
+		font-size: 36px;
+		text-align: left;
+		margin-bottom: 20px;
+	}
+
+	&__text{
+		
+	}
+
+	&__image-placeholder{
+		float: right;
+		width: 30%;
+		text-align: right;
+		margin: 50px 0 0;
+	}
+
+	&__image{
+		
+	}
+}
+
 
 /* ==========================================================================
  * info
